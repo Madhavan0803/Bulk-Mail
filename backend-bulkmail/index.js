@@ -8,7 +8,8 @@ app.use(cors());
 app.use(express.json());
 
 
-mongoose.connect('mongodb+srv://madhavangr0803:hI9t4hsR6HrO1xUd@cluster0.cf6ek.mongodb.net/passkey?retryWrites=true&w=majority&appName=Cluster0').then(() => {
+mongoose.connect('mongodb+srv://Madhavan:1234@cluster0.pzv3i.mongodb.net/passkey?retryWrites=true&w=majority&appName=Cluster0')
+.then(() => {
   console.log('Conected to DB')
 })
   .catch(() => {
@@ -27,17 +28,18 @@ app.post('/sendmail', (req, res) => {
       service: 'gmail',
       auth: {
         user: data[0].toJSON().user,
-        pass: data[0].toJSON().password,
+        pass: data[0].toJSON().pass,
       },
-
-
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
 
     new Promise(async (resolve, reject) => {
       try {
         for (let i = 0; i < emailList.length; i++) {
           await transporter.sendMail({
-            from: 'madhavangr0803@gmail.com',
+            from: 'maddygr08032001@gmail.com',
             to: emailList[i],
             subject: 'Bulkmail Task',
             text: message,
